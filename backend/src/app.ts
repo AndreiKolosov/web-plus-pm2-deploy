@@ -14,13 +14,19 @@ const { PORT = 3000 } = process.env;
 const app = express();
 
 mongoose.connect(DB_ADDRESS);
-
+const whitelist = [
+  'https://api.nomoremesto.nomoredomains.work',
+  'http://api.nomoremesto.nomoredomains.work',
+];
 app.use(
   cors({
-    origin: [
-      'https://api.nomoremesto.nomoredomains.work',
-      'http://api.nomoremesto.nomoredomains.work',
-    ],
+    origin: (origin, callback) => {
+      if (origin && whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     optionsSuccessStatus: 200,
   }),
 );
