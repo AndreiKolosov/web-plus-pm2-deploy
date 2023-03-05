@@ -139,7 +139,7 @@ class Api {
   }
   }
   // Замените на адрес вашего бэкенда
-  const api = new Api("http://api.nomoremesto.nomoredomains.work");
+  const api = new Api("https://api.nomoremesto.nomoredomains.work");
   
   export default api;
   
