@@ -15,7 +15,11 @@ const app = express();
 mongoose.connect(DB_ADDRESS);
 
 // app.use(cors());
-app.use(helmet());
+app.use(
+  helmet({
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
