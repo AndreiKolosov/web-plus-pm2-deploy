@@ -138,7 +138,7 @@ class Api {
       .then(getResponse)
   }
   }
-  // Замените на адрес вашего бэкенда
+  
   const api = new Api("https://api.nomoremesto.nomoredomains.work");
   
   export default api;
