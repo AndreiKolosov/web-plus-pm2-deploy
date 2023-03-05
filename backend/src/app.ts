@@ -12,14 +12,22 @@ import routes from './routes';
 
 const { PORT = 3000 } = process.env;
 const app = express();
+const whitelist = [
+  'https://nomoremesto.nomoredomains.work',
+  'http://nomoremesto.nomoredomains.work',
+];
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
 mongoose.connect(DB_ADDRESS);
 
-app.use(
-  cors({
-    origin: ['https://nomoremesto.nomoredomains.work'],
-    optionsSuccessStatus: 200,
-  }),
-);
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
